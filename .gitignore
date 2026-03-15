@@ -1,0 +1,34 @@
+# Sanal ortam
+.venv/
+venv/
+env/
+.env
+
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+*.egg-info/
+.eggs/
+dist/
+build/
+
+# Gradio / geçici dosyalar
+.gradio/
+preprocessed/
+*.zip
+tmp/
+temp/
+
+# IDE / işletim sistemi
+.idea/
+.vscode/
+*.swp
+.DS_Store
+Thumbs.db
+
+# Ortam değişkenleri (gizli anahtarlar için)
+.env.local
+.env.*.local
