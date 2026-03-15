@@ -24,7 +24,7 @@ Geliştiriciler tarafından eğitim ve araştırma amaçlı kullanım için tasa
 image_processor = ImageProcessor()
 
 # Gradio arayüzünü oluştur
-with gr.Blocks(theme=gr.themes.Default()) as demo:
+with gr.Blocks() as demo:
     with gr.Tab("Klasik Görüntü İşleme"):
         # Görüntü işleme sayfası
         editor_page = gr.Column(visible=True)
@@ -404,4 +404,4 @@ with gr.Blocks(theme=gr.themes.Default()) as demo:
     """)
 # Çalıştır (Docker/Coolify için 0.0.0.0 gerekli)
 if __name__ == "__main__":
-    demo.launch(server_name="0.0.0.0", server_port=7860) 
+    demo.launch(server_name="0.0.0.0", server_port=7860, theme=gr.themes.Default()) 
