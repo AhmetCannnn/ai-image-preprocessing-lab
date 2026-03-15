@@ -1,6 +1,7 @@
 import gradio as gr
 import numpy as np
 import os
+from fastapi import FastAPI
 from PIL import Image, ImageOps
 import tempfile
 import shutil
@@ -402,6 +403,13 @@ with gr.Blocks() as demo:
         }
     </style>
     """)
-# Çalıştır (Docker/Coolify için 0.0.0.0 gerekli)
+
+# Coolify/reverse proxy için: FastAPI + mount_gradio_app + uvicorn
+app = FastAPI()
+app = gr.mount_gradio_app(app, demo, path="/")
+
 if __name__ == "__main__":
-    demo.launch(server_name="0.0.0.0", server_port=7860, theme=gr.themes.Default()) 
+    import uvicorn
+    port = int(os.environ.get("PORT", "7860"))
+    print(f"Starting on http://0.0.0.0:{port}", flush=True)
+    uvicorn.run(app, host="0.0.0.0", port=port) 
