@@ -248,14 +248,16 @@ with gr.Blocks() as demo:
         def limit_files(files):
             """
             Dosyalar yüklendiği anda sayıyı kontrol eder.
-            50 sınırı aşılıyorsa seçim temizlenir ve kullanıcıya uyarı verilir.
+            Not: dataset_files bileşenini output olarak güncellemek, change event'ini tekrar tetikleyip
+            bazı ortamlarda sonsuz döngüye yol açabildiği için burada sadece uyarı metni döndürüyoruz.
+            Kesin limit kontrolü ai_preprocess_pipeline içinde zaten var.
             """
             if not files:
-                return files, ""
+                return ""
             count = len(files)
             if count > MAX_FILES:
-                return None, f"En fazla {MAX_FILES} dosya seçebilirsiniz. Seçilen dosya sayısı: {count}"
-            return files, ""
+                return f"En fazla {MAX_FILES} dosya seçebilirsiniz. Seçilen dosya sayısı: {count}"
+            return ""
 
         def ai_preprocess_pipeline(
             files,
@@ -364,7 +366,7 @@ with gr.Blocks() as demo:
         dataset_files.change(
             limit_files,
             inputs=[dataset_files],
-            outputs=[dataset_files, preprocess_log],
+            outputs=[preprocess_log],
         )
 
         preprocess_btn.click(
